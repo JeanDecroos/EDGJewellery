@@ -400,9 +400,155 @@
         </div>
     </footer>
     
+    <!-- Quick View Modal -->
+    <div id="quickViewModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-body">
+                <div class="modal-image">
+                    <img id="modalImage" src="" alt="Product Image">
+                </div>
+                <div class="modal-info">
+                    <h2 id="modalTitle"></h2>
+                    <div class="modal-rating">
+                        <div id="modalStars"></div>
+                        <span id="modalRatingCount"></span>
+                    </div>
+                    <p id="modalDescription"></p>
+                    <div class="modal-price">
+                        <span id="modalPrice"></span>
+                    </div>
+                    <div class="modal-features">
+                        <ul id="modalFeatures"></ul>
+                    </div>
+                    <div class="modal-actions">
+                        <button class="btn-primary modal-btn">Add to Cart</button>
+                        <button class="btn-ghost modal-btn">Add to Wishlist</button>
+                    </div>
+                    <div class="modal-guarantee">
+                        <div class="guarantee-item">
+                            <i class="fas fa-shipping-fast"></i>
+                            <span>Free shipping on orders over $500</span>
+                        </div>
+                        <div class="guarantee-item">
+                            <i class="fas fa-undo-alt"></i>
+                            <span>30-day return policy</span>
+                        </div>
+                        <div class="guarantee-item">
+                            <i class="fas fa-certificate"></i>
+                            <span>Certificate of authenticity included</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="notification" class="notification">
+        <div class="notification-content">
+            <i class="notification-icon"></i>
+            <span class="notification-text"></span>
+        </div>
+    </div>
+
     <script>
-        // Product filtering functionality
+        // Product data for quick view
+        const productData = {
+            'Diamond Solitaire Ring': {
+                image: 'https://images.unsplash.com/photo-1603561591411-07134e71a2a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                title: 'Diamond Solitaire Ring',
+                rating: 5,
+                ratingCount: 47,
+                description: '1.2ct brilliant cut diamond, 18k white gold',
+                price: '$2,850',
+                features: [
+                    '1.2 carat brilliant cut diamond',
+                    '18k white gold band',
+                    'VS1 clarity, F color grade',
+                    'Conflict-free certified diamond',
+                    'Custom sizing available'
+                ]
+            },
+            'Eternal Gold Chain': {
+                image: 'https://images.unsplash.com/photo-1506630448388-4e683c67ddb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                title: 'Eternal Gold Chain',
+                rating: 5,
+                ratingCount: 32,
+                description: '18k gold vermeil, adjustable length',
+                price: '$1,250',
+                features: [
+                    '18k gold vermeil finish',
+                    'Adjustable 16-18 inch length',
+                    'Sterling silver base',
+                    'Hypoallergenic materials',
+                    'Lifetime warranty included'
+                ]
+            },
+            'Pearl Drop Earrings': {
+                image: 'https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                title: 'Pearl Drop Earrings',
+                rating: 5,
+                ratingCount: 28,
+                description: 'Freshwater pearls, sterling silver',
+                price: '$890',
+                features: [
+                    'AAA grade freshwater pearls',
+                    'Sterling silver posts',
+                    'Secure butterfly backs',
+                    'Natural pearl variations',
+                    'Gift box included'
+                ]
+            },
+            'Silver Tennis Bracelet': {
+                image: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                title: 'Silver Tennis Bracelet',
+                rating: 5,
+                ratingCount: 41,
+                description: 'Sterling silver, cubic zirconia',
+                price: '$1,650',
+                features: [
+                    'Premium cubic zirconia stones',
+                    'Sterling silver setting',
+                    'Secure box clasp',
+                    'Multiple size options',
+                    'Professional cleaning service'
+                ]
+            },
+            'Emerald Cocktail Ring': {
+                image: 'https://images.unsplash.com/photo-1596944924616-7b38e7cfac36?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                title: 'Emerald Cocktail Ring',
+                rating: 5,
+                ratingCount: 23,
+                description: 'Natural emerald, 18k yellow gold',
+                price: '$3,200',
+                features: [
+                    '2.5 carat natural emerald',
+                    '18k yellow gold setting',
+                    'Colombian emerald origin',
+                    'Gemological certificate',
+                    'Custom engraving available'
+                ]
+            },
+            'Diamond Pendant Necklace': {
+                image: 'https://images.unsplash.com/photo-1588444837495-c6cfeb53f32d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                title: 'Diamond Pendant Necklace',
+                rating: 5,
+                ratingCount: 35,
+                description: '0.5ct diamond, 14k white gold chain',
+                price: '$2,450',
+                features: [
+                    '0.5 carat round diamond',
+                    '14k white gold chain',
+                    'VS2 clarity, G color grade',
+                    '18 inch chain length',
+                    'Secure lobster clasp'
+                ]
+            }
+        };
+
         document.addEventListener('DOMContentLoaded', function() {
+            // Product filtering functionality
             const filterButtons = document.querySelectorAll('.filter-btn');
             const productCards = document.querySelectorAll('.product-card');
             
@@ -426,6 +572,146 @@
                 });
             });
             
+            // Quick View functionality
+            const quickViewButtons = document.querySelectorAll('.btn-secondary');
+            const modal = document.getElementById('quickViewModal');
+            const closeBtn = document.querySelector('.close');
+            
+            quickViewButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    const productCard = this.closest('.product-card');
+                    const productTitle = productCard.querySelector('h3').textContent;
+                    const product = productData[productTitle];
+                    
+                    if (product) {
+                        // Populate modal with product data
+                        document.getElementById('modalImage').src = product.image;
+                        document.getElementById('modalTitle').textContent = product.title;
+                        document.getElementById('modalDescription').textContent = product.description;
+                        document.getElementById('modalPrice').textContent = product.price;
+                        document.getElementById('modalRatingCount').textContent = `(${product.ratingCount})`;
+                        
+                        // Generate stars
+                        const starsContainer = document.getElementById('modalStars');
+                        starsContainer.innerHTML = '';
+                        for (let i = 0; i < 5; i++) {
+                            const star = document.createElement('i');
+                            star.className = i < product.rating ? 'fas fa-star' : 'far fa-star';
+                            starsContainer.appendChild(star);
+                        }
+                        
+                        // Generate features list
+                        const featuresContainer = document.getElementById('modalFeatures');
+                        featuresContainer.innerHTML = '';
+                        product.features.forEach(feature => {
+                            const li = document.createElement('li');
+                            li.innerHTML = `<i class="fas fa-check"></i> ${feature}`;
+                            featuresContainer.appendChild(li);
+                        });
+                        
+                        modal.style.display = 'block';
+                        document.body.style.overflow = 'hidden';
+                    }
+                });
+            });
+            
+            // Close modal functionality
+            closeBtn.addEventListener('click', function() {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+            
+            window.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+            
+            // Wishlist functionality
+            const wishlistButtons = document.querySelectorAll('.btn-wishlist');
+            let wishlistItems = JSON.parse(localStorage.getItem('wishlist')) || [];
+            
+            // Update wishlist button states on load
+            updateWishlistButtons();
+            
+            wishlistButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    const productCard = this.closest('.product-card');
+                    const productTitle = productCard.querySelector('h3').textContent;
+                    const productImage = productCard.querySelector('img').src;
+                    const productPrice = productCard.querySelector('.price').textContent;
+                    
+                    const product = {
+                        title: productTitle,
+                        image: productImage,
+                        price: productPrice
+                    };
+                    
+                    const existingIndex = wishlistItems.findIndex(item => item.title === productTitle);
+                    
+                    if (existingIndex > -1) {
+                        // Remove from wishlist
+                        wishlistItems.splice(existingIndex, 1);
+                        this.querySelector('i').className = 'far fa-heart';
+                        showNotification('Removed from wishlist', 'fas fa-heart-broken', '#e74c3c');
+                    } else {
+                        // Add to wishlist
+                        wishlistItems.push(product);
+                        this.querySelector('i').className = 'fas fa-heart';
+                        showNotification('Added to wishlist', 'fas fa-heart', '#e74c3c');
+                    }
+                    
+                    localStorage.setItem('wishlist', JSON.stringify(wishlistItems));
+                });
+            });
+            
+            // Add to cart functionality from modal
+            const addToCartButtons = document.querySelectorAll('.modal-actions .btn-primary');
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const productTitle = document.getElementById('modalTitle').textContent;
+                    showNotification(`${productTitle} added to cart!`, 'fas fa-shopping-cart', '#27ae60');
+                    
+                    // Close modal
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                });
+            });
+            
+            // Add to wishlist from modal
+            const modalWishlistButtons = document.querySelectorAll('.modal-actions .btn-ghost');
+            modalWishlistButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const productTitle = document.getElementById('modalTitle').textContent;
+                    const productImage = document.getElementById('modalImage').src;
+                    const productPrice = document.getElementById('modalPrice').textContent;
+                    
+                    const product = {
+                        title: productTitle,
+                        image: productImage,
+                        price: productPrice
+                    };
+                    
+                    const existingIndex = wishlistItems.findIndex(item => item.title === productTitle);
+                    
+                    if (existingIndex === -1) {
+                        wishlistItems.push(product);
+                        localStorage.setItem('wishlist', JSON.stringify(wishlistItems));
+                        showNotification('Added to wishlist', 'fas fa-heart', '#e74c3c');
+                        updateWishlistButtons();
+                    } else {
+                        showNotification('Already in wishlist', 'fas fa-heart', '#f39c12');
+                    }
+                });
+            });
+            
             // Smooth scrolling for navigation links
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
@@ -439,14 +725,294 @@
                     }
                 });
             });
+            
+            // Search functionality
+            const searchIcon = document.querySelector('.fa-search');
+            searchIcon.addEventListener('click', function() {
+                const searchTerm = prompt('Search for jewelry:');
+                if (searchTerm) {
+                    searchProducts(searchTerm);
+                }
+            });
+            
+            // Shopping bag click
+            const shoppingBag = document.querySelector('.fa-shopping-bag');
+            shoppingBag.addEventListener('click', function() {
+                showNotification('Shopping cart feature coming soon!', 'fas fa-shopping-cart', '#3498db');
+            });
         });
         
-        // Add fade-in animation keyframes
+        function updateWishlistButtons() {
+            const wishlistItems = JSON.parse(localStorage.getItem('wishlist')) || [];
+            const wishlistButtons = document.querySelectorAll('.btn-wishlist');
+            
+            wishlistButtons.forEach(button => {
+                const productCard = button.closest('.product-card');
+                const productTitle = productCard.querySelector('h3').textContent;
+                const isInWishlist = wishlistItems.some(item => item.title === productTitle);
+                
+                button.querySelector('i').className = isInWishlist ? 'fas fa-heart' : 'far fa-heart';
+            });
+        }
+        
+        function showNotification(message, icon, color) {
+            const notification = document.getElementById('notification');
+            const notificationIcon = notification.querySelector('.notification-icon');
+            const notificationText = notification.querySelector('.notification-text');
+            
+            notificationIcon.className = `notification-icon ${icon}`;
+            notificationIcon.style.color = color;
+            notificationText.textContent = message;
+            
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+        
+        function searchProducts(searchTerm) {
+            const productCards = document.querySelectorAll('.product-card');
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            let found = false;
+            
+            // Reset filter buttons
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            
+            productCards.forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const description = card.querySelector('.product-description').textContent.toLowerCase();
+                const searchLower = searchTerm.toLowerCase();
+                
+                if (title.includes(searchLower) || description.includes(searchLower)) {
+                    card.style.display = 'block';
+                    card.style.animation = 'fadeIn 0.5s ease-in-out';
+                    found = true;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            if (!found) {
+                showNotification(`No results found for "${searchTerm}"`, 'fas fa-search', '#e74c3c');
+            } else {
+                showNotification(`Found results for "${searchTerm}"`, 'fas fa-search', '#27ae60');
+            }
+        }
+        
+        // Add fade-in animation keyframes and modal styles
         const style = document.createElement('style');
         style.textContent = `
             @keyframes fadeIn {
                 0% { opacity: 0; transform: translateY(20px); }
                 100% { opacity: 1; transform: translateY(0); }
+            }
+            
+            .modal {
+                display: none;
+                position: fixed;
+                z-index: 10000;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.8);
+                backdrop-filter: blur(5px);
+            }
+            
+            .modal-content {
+                background-color: white;
+                margin: 2% auto;
+                padding: 0;
+                border-radius: 20px;
+                width: 90%;
+                max-width: 900px;
+                max-height: 90vh;
+                overflow-y: auto;
+                position: relative;
+                animation: modalSlideIn 0.3s ease-out;
+            }
+            
+            @keyframes modalSlideIn {
+                from { opacity: 0; transform: translateY(-50px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            
+            .close {
+                position: absolute;
+                right: 20px;
+                top: 20px;
+                font-size: 28px;
+                font-weight: bold;
+                color: #666;
+                cursor: pointer;
+                z-index: 1001;
+                width: 40px;
+                height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.9);
+                transition: all 0.3s ease;
+            }
+            
+            .close:hover {
+                color: #333;
+                background: white;
+                transform: scale(1.1);
+            }
+            
+            .modal-body {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+                padding: 40px;
+            }
+            
+            .modal-image img {
+                width: 100%;
+                height: 400px;
+                object-fit: cover;
+                border-radius: 15px;
+            }
+            
+            .modal-info h2 {
+                font-family: 'Playfair Display', serif;
+                font-size: 2rem;
+                color: #1a1a1a;
+                margin-bottom: 15px;
+            }
+            
+            .modal-rating {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                margin-bottom: 20px;
+            }
+            
+            .modal-rating i {
+                color: #ffd700;
+                font-size: 16px;
+            }
+            
+            .modal-info p {
+                font-size: 18px;
+                color: #666;
+                margin-bottom: 20px;
+            }
+            
+            .modal-price {
+                font-size: 2rem;
+                font-weight: 700;
+                color: #2c2c2c;
+                margin-bottom: 30px;
+            }
+            
+            .modal-features ul {
+                list-style: none;
+                padding: 0;
+                margin-bottom: 30px;
+            }
+            
+            .modal-features li {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                margin-bottom: 10px;
+                font-size: 14px;
+                color: #666;
+            }
+            
+            .modal-features i {
+                color: #27ae60;
+                font-size: 12px;
+            }
+            
+            .modal-actions {
+                display: flex;
+                gap: 15px;
+                margin-bottom: 30px;
+            }
+            
+            .modal-btn {
+                flex: 1;
+                text-align: center;
+                padding: 15px;
+                font-size: 14px;
+            }
+            
+            .modal-guarantee {
+                border-top: 1px solid #eee;
+                padding-top: 20px;
+            }
+            
+            .guarantee-item {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                margin-bottom: 10px;
+                font-size: 12px;
+                color: #666;
+            }
+            
+            .guarantee-item i {
+                color: #27ae60;
+                font-size: 14px;
+            }
+            
+            .notification {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: white;
+                padding: 15px 20px;
+                border-radius: 10px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+                z-index: 10001;
+                transform: translateX(400px);
+                transition: transform 0.3s ease;
+            }
+            
+            .notification.show {
+                transform: translateX(0);
+            }
+            
+            .notification-content {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            
+            .notification-icon {
+                font-size: 16px;
+            }
+            
+            .notification-text {
+                font-weight: 600;
+                color: #2c2c2c;
+            }
+            
+            @media (max-width: 768px) {
+                .modal-body {
+                    grid-template-columns: 1fr;
+                    gap: 20px;
+                    padding: 20px;
+                }
+                
+                .modal-actions {
+                    flex-direction: column;
+                }
+                
+                .notification {
+                    right: 10px;
+                    left: 10px;
+                    transform: translateY(-100px);
+                }
+                
+                .notification.show {
+                    transform: translateY(0);
+                }
             }
         `;
         document.head.appendChild(style);
