@@ -3,17 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Luxe Jewelry - Handcrafted Excellence</title>
+    <title>byestelledegeyter - Handcrafted Excellence</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <header class="header">
         <div class="container">
             <div class="logo">
-                <h1>LUXE</h1>
-                <span>JEWELRY</span>
+                <h1>byestelledegeyter</h1>
             </div>
             <nav class="nav">
                 <ul>
@@ -33,12 +32,42 @@
     <main>
         <section class="hero" id="home">
             <div class="hero-content">
-                <h2>Exquisite Handcrafted Jewelry</h2>
-                <p>Discover timeless pieces that tell your unique story</p>
-                <a href="#collections" class="btn-primary">Explore Collection</a>
+                <span class="hero-badge">Handcrafted Excellence</span>
+                <h2>Where Elegance Meets Eternity</h2>
+                <p>Each piece is meticulously crafted to celebrate life's most precious moments. Discover jewelry that becomes part of your legacy.</p>
+                <div class="hero-cta">
+                    <a href="#collections" class="btn-primary">Discover Your Story</a>
+                    <a href="#about" class="btn-ghost">Our Craftsmanship</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">500+</span>
+                        <span class="stat-label">Unique Designs</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">15+</span>
+                        <span class="stat-label">Years of Excellence</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">Ethically Sourced</span>
+                    </div>
+                </div>
             </div>
             <div class="hero-image">
-                <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80" alt="Luxury jewelry">
+                <div class="hero-image-container">
+                    <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80" alt="Luxury jewelry">
+                    <div class="floating-elements">
+                        <div class="floating-card">
+                            <i class="fas fa-gem"></i>
+                            <span>Premium Quality</span>
+                        </div>
+                        <div class="floating-card">
+                            <i class="fas fa-award"></i>
+                            <span>Award Winning</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -63,31 +92,84 @@
 
         <section class="products" id="collections">
             <div class="container">
-                <h2 class="section-title">Featured Collection</h2>
+                <div class="section-header">
+                    <span class="section-badge">Curated Selection</span>
+                    <h2 class="section-title">Signature Collection</h2>
+                    <p class="section-subtitle">Each piece tells a story of exceptional craftsmanship and timeless beauty</p>
+                </div>
+                <div class="collection-filters">
+                    <button class="filter-btn active" data-filter="all">All Pieces</button>
+                    <button class="filter-btn" data-filter="rings">Rings</button>
+                    <button class="filter-btn" data-filter="necklaces">Necklaces</button>
+                    <button class="filter-btn" data-filter="earrings">Earrings</button>
+                    <button class="filter-btn" data-filter="bracelets">Bracelets</button>
+                </div>
                 <div class="product-grid">
-                    <div class="product-card">
+                    <div class="product-card" data-category="rings">
                         <div class="product-image">
                             <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Diamond Ring">
+                            <div class="product-badges">
+                                <span class="badge bestseller">Bestseller</span>
+                            </div>
                             <div class="product-overlay">
-                                <button class="btn-secondary">Quick View</button>
+                                <button class="btn-secondary">
+                                    <i class="fas fa-eye"></i>
+                                    Quick View
+                                </button>
+                                <button class="btn-wishlist">
+                                    <i class="far fa-heart"></i>
+                                </button>
                             </div>
                         </div>
                         <div class="product-info">
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span class="rating-count">(47)</span>
+                            </div>
                             <h3>Diamond Solitaire Ring</h3>
-                            <p class="price">$2,850</p>
+                            <p class="product-description">1.2ct brilliant cut diamond, 18k white gold</p>
+                            <div class="price-container">
+                                <p class="price">$2,850</p>
+                                <p class="price-note">Free shipping & returns</p>
+                            </div>
                         </div>
                     </div>
                     
-                    <div class="product-card">
+                    <div class="product-card" data-category="necklaces">
                         <div class="product-image">
                             <img src="https://images.unsplash.com/photo-1506630448388-4e683c67ddb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Gold Necklace">
+                            <div class="product-badges">
+                                <span class="badge new">New Arrival</span>
+                            </div>
                             <div class="product-overlay">
-                                <button class="btn-secondary">Quick View</button>
+                                <button class="btn-secondary">
+                                    <i class="fas fa-eye"></i>
+                                    Quick View
+                                </button>
+                                <button class="btn-wishlist">
+                                    <i class="far fa-heart"></i>
+                                </button>
                             </div>
                         </div>
                         <div class="product-info">
-                            <h3>Gold Chain Necklace</h3>
-                            <p class="price">$1,250</p>
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span class="rating-count">(32)</span>
+                            </div>
+                            <h3>Eternal Gold Chain</h3>
+                            <p class="product-description">18k gold vermeil, adjustable length</p>
+                            <div class="price-container">
+                                <p class="price">$1,250</p>
+                                <p class="price-note">Lifetime warranty</p>
+                            </div>
                         </div>
                     </div>
                     
@@ -146,16 +228,64 @@
             </div>
         </section>
 
+        <section class="trust-indicators">
+            <div class="container">
+                <div class="trust-grid">
+                    <div class="trust-item">
+                        <i class="fas fa-shipping-fast"></i>
+                        <h4>Free Worldwide Shipping</h4>
+                        <p>Complimentary shipping on all orders over $500</p>
+                    </div>
+                    <div class="trust-item">
+                        <i class="fas fa-undo-alt"></i>
+                        <h4>30-Day Returns</h4>
+                        <p>Not completely satisfied? Return within 30 days</p>
+                    </div>
+                    <div class="trust-item">
+                        <i class="fas fa-certificate"></i>
+                        <h4>Lifetime Warranty</h4>
+                        <p>Expert craftsmanship backed by our lifetime guarantee</p>
+                    </div>
+                    <div class="trust-item">
+                        <i class="fas fa-gem"></i>
+                        <h4>Certified Authentic</h4>
+                        <p>Every piece comes with certificate of authenticity</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section class="about-section" id="about">
             <div class="container">
                 <div class="about-content">
                     <div class="about-text">
-                        <h2>Crafted with Passion</h2>
-                        <p>Each piece in our collection is meticulously handcrafted using the finest materials and time-honored techniques. We believe jewelry should be more than an accessory—it should be a reflection of your unique story and style.</p>
-                        <p>From concept to creation, every detail is carefully considered to ensure you receive a piece that will be treasured for generations.</p>
+                        <span class="section-badge">Our Story</span>
+                        <h2>Where Tradition Meets Innovation</h2>
+                        <p>For over a decade, we've been creating extraordinary jewelry that captures life's most precious moments. Each piece in our collection is meticulously handcrafted using the finest materials and time-honored techniques passed down through generations.</p>
+                        <p>We believe jewelry should be more than an accessory—it should be a reflection of your unique story, a symbol of your journey, and a treasure that will be cherished for generations to come.</p>
+                        <div class="about-features">
+                            <div class="feature">
+                                <i class="fas fa-hand-sparkles"></i>
+                                <span>Hand-Selected Materials</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-tools"></i>
+                                <span>Master Craftsmanship</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-leaf"></i>
+                                <span>Ethically Sourced</span>
+                            </div>
+                        </div>
                     </div>
                     <div class="about-image">
                         <img src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Jewelry crafting">
+                        <div class="about-overlay">
+                            <div class="play-button">
+                                <i class="fas fa-play"></i>
+                            </div>
+                            <p>Watch Our Crafting Process</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -166,7 +296,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>LUXE JEWELRY</h3>
+                    <h3>byestelledegeyter</h3>
                     <p>Handcrafted excellence since 2020</p>
                 </div>
                 <div class="footer-section">
@@ -180,8 +310,8 @@
                 </div>
                 <div class="footer-section">
                     <h4>Contact</h4>
-                    <p>Email: info@luxejewelry.com</p>
-                    <p>Phone: +1 (555) 123-4567</p>
+                    <p>Email: hello@byestelledegeyter.com</p>
+                    <p>Instagram: @byestelledegeyter</p>
                 </div>
                 <div class="footer-section">
                     <h4>Follow Us</h4>
@@ -193,9 +323,61 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 Luxe Jewelry. All rights reserved.</p>
+                <p>&copy; 2024 byestelledegeyter. All rights reserved.</p>
             </div>
         </div>
     </footer>
+    
+    <script>
+        // Product filtering functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const productCards = document.querySelectorAll('.product-card');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    const filterValue = this.getAttribute('data-filter');
+                    
+                    productCards.forEach(card => {
+                        if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+                            card.style.display = 'block';
+                            card.style.animation = 'fadeIn 0.5s ease-in-out';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+        
+        // Add fade-in animation keyframes
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeIn {
+                0% { opacity: 0; transform: translateY(20px); }
+                100% { opacity: 1; transform: translateY(0); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
 </body>
 </html> 
