@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxe Jewelry - Handcrafted Excellence</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>LUXE</h1>
+                <span>JEWELRY</span>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#collections">Collections</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="header-icons">
+                <i class="fas fa-search"></i>
+                <i class="fas fa-shopping-bag"></i>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero" id="home">
+            <div class="hero-content">
+                <h2>Exquisite Handcrafted Jewelry</h2>
+                <p>Discover timeless pieces that tell your unique story</p>
+                <a href="#collections" class="btn-primary">Explore Collection</a>
+            </div>
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80" alt="Luxury jewelry">
+            </div>
+        </section>
+
+        <section class="featured-categories">
+            <div class="container">
+                <div class="category-grid">
+                    <div class="category-card">
+                        <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Rings">
+                        <h3>Rings</h3>
+                    </div>
+                    <div class="category-card">
+                        <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Necklaces">
+                        <h3>Necklaces</h3>
+                    </div>
+                    <div class="category-card">
+                        <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Earrings">
+                        <h3>Earrings</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="products" id="collections">
+            <div class="container">
+                <h2 class="section-title">Featured Collection</h2>
+                <div class="product-grid">
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Diamond Ring">
+                            <div class="product-overlay">
+                                <button class="btn-secondary">Quick View</button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3>Diamond Solitaire Ring</h3>
+                            <p class="price">$2,850</p>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1506630448388-4e683c67ddb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Gold Necklace">
+                            <div class="product-overlay">
+                                <button class="btn-secondary">Quick View</button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3>Gold Chain Necklace</h3>
+                            <p class="price">$1,250</p>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Pearl Earrings">
+                            <div class="product-overlay">
+                                <button class="btn-secondary">Quick View</button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3>Pearl Drop Earrings</h3>
+                            <p class="price">$890</p>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Silver Bracelet">
+                            <div class="product-overlay">
+                                <button class="btn-secondary">Quick View</button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3>Silver Tennis Bracelet</h3>
+                            <p class="price">$1,650</p>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1596944924616-7b38e7cfac36?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Emerald Ring">
+                            <div class="product-overlay">
+                                <button class="btn-secondary">Quick View</button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3>Emerald Cocktail Ring</h3>
+                            <p class="price">$3,200</p>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1588444837495-c6cfeb53f32d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Diamond Necklace">
+                            <div class="product-overlay">
+                                <button class="btn-secondary">Quick View</button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3>Diamond Pendant Necklace</h3>
+                            <p class="price">$2,450</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="about-section" id="about">
+            <div class="container">
+                <div class="about-content">
+                    <div class="about-text">
+                        <h2>Crafted with Passion</h2>
+                        <p>Each piece in our collection is meticulously handcrafted using the finest materials and time-honored techniques. We believe jewelry should be more than an accessory—it should be a reflection of your unique story and style.</p>
+                        <p>From concept to creation, every detail is carefully considered to ensure you receive a piece that will be treasured for generations.</p>
+                    </div>
+                    <div class="about-image">
+                        <img src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Jewelry crafting">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>LUXE JEWELRY</h3>
+                    <p>Handcrafted excellence since 2020</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#collections">Collections</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>Email: info@luxejewelry.com</p>
+                    <p>Phone: +1 (555) 123-4567</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <i class="fab fa-instagram"></i>
+                        <i class="fab fa-facebook"></i>
+                        <i class="fab fa-pinterest"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Luxe Jewelry. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html> 
