@@ -14,7 +14,7 @@
             <div class="logo">
                 <h1>byestelledegeyter</h1>
             </div>
-            <nav class="nav">
+            <nav class="nav" id="navMenu">
                 <ul>
                     <li><a href="#home">Home</a></li>
                     <li><a href="#collections">Collections</a></li>
@@ -22,6 +22,11 @@
                     <li><a href="#contact">Contact</a></li>
                 </ul>
             </nav>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle navigation menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
             <div class="header-icons">
                 <i class="fas fa-search" id="searchIcon"></i>
                 <div class="cart-icon-container">
@@ -449,10 +454,10 @@
     </div>
 
     <!-- Shopping Cart Sidebar -->
-    <div id="cartSidebar" class="cart-sidebar">
+    <div id="cartSidebar" class="cart-sidebar" role="dialog" aria-labelledby="cart-title" aria-hidden="true">
         <div class="cart-header">
-            <h3>Shopping Cart</h3>
-            <button class="close-cart" id="closeCart">&times;</button>
+            <h3 id="cart-title">Shopping Cart</h3>
+            <button class="close-cart" id="closeCart" aria-label="Close cart">&times;</button>
         </div>
         <div class="cart-content">
             <div id="cartItems" class="cart-items">
@@ -722,6 +727,44 @@
         </div>
     </div>
 
+    <!-- Search Modal -->
+    <div id="searchModal" class="modal search-modal">
+        <div class="modal-content search-content">
+            <span class="close" id="closeSearch">&times;</span>
+            <div class="search-header">
+                <h2>Search Jewelry</h2>
+                <div class="search-input-container">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Search for rings, necklaces, earrings..." autocomplete="off">
+                    <button class="search-clear" id="clearSearch" style="display: none;">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="search-results" id="searchResults">
+                <div class="search-suggestions">
+                    <h3>Popular Searches</h3>
+                    <div class="suggestion-tags">
+                        <span class="suggestion-tag" data-search="diamond">Diamond</span>
+                        <span class="suggestion-tag" data-search="gold">Gold</span>
+                        <span class="suggestion-tag" data-search="pearl">Pearl</span>
+                        <span class="suggestion-tag" data-search="ring">Rings</span>
+                        <span class="suggestion-tag" data-search="necklace">Necklaces</span>
+                        <span class="suggestion-tag" data-search="earrings">Earrings</span>
+                    </div>
+                </div>
+                <div class="search-products" id="searchProducts" style="display: none;">
+                    <!-- Search results will be populated here -->
+                </div>
+                <div class="no-results" id="noResults" style="display: none;">
+                    <i class="fas fa-search"></i>
+                    <h3>No results found</h3>
+                    <p>Try adjusting your search terms</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Notification Toast -->
     <div id="notification" class="notification">
         <div class="notification-content">
@@ -889,7 +932,18 @@
                 });
 
                 // Search functionality
-                document.getElementById('searchIcon').addEventListener('click', () => this.handleSearch());
+                document.getElementById('searchIcon').addEventListener('click', () => this.openSearch());
+                document.getElementById('closeSearch').addEventListener('click', () => this.closeSearch());
+                document.getElementById('searchInput').addEventListener('input', (e) => this.handleSearchInput(e));
+                document.getElementById('clearSearch').addEventListener('click', () => this.clearSearch());
+                
+                // Search suggestions
+                document.querySelectorAll('.suggestion-tag').forEach(tag => {
+                    tag.addEventListener('click', (e) => this.searchFromSuggestion(e));
+                });
+
+                // Mobile menu functionality
+                document.getElementById('mobileMenuToggle').addEventListener('click', () => this.toggleMobileMenu());
 
                 // Modal close functionality
                 document.querySelector('.close').addEventListener('click', () => this.closeModal());
@@ -1293,9 +1347,10 @@
                             }
                             break;
                         case 'cardNumber':
-                            if (!/^\d{4}\s\d{4}\s\d{4}\s\d{4}$/.test(value)) {
+                            const cleanCard = value.replace(/\s/g, '');
+                            if (!/^\d{13,19}$/.test(cleanCard)) {
                                 isValid = false;
-                                errorMessage = 'Please enter a valid card number';
+                                errorMessage = 'Please enter a valid card number (13-19 digits)';
                             }
                             break;
                         case 'expiryDate':
@@ -1410,12 +1465,122 @@
                 document.getElementById('orderConfirmationModal').style.display = 'block';
             }
 
-            // Search functionality
-            handleSearch() {
-                const searchTerm = prompt('Search for jewelry:');
-                if (searchTerm) {
-                    this.searchProducts(searchTerm);
+            // Mobile menu functionality
+            toggleMobileMenu() {
+                const navMenu = document.getElementById('navMenu');
+                const menuToggle = document.getElementById('mobileMenuToggle');
+                
+                navMenu.classList.toggle('active');
+                menuToggle.classList.toggle('active');
+            }
+
+            // Enhanced search functionality
+            openSearch() {
+                document.getElementById('searchModal').style.display = 'block';
+                document.body.style.overflow = 'hidden';
+                document.getElementById('searchInput').focus();
+            }
+
+            closeSearch() {
+                document.getElementById('searchModal').style.display = 'none';
+                document.body.style.overflow = 'auto';
+                this.clearSearch();
+            }
+
+            clearSearch() {
+                const searchInput = document.getElementById('searchInput');
+                const clearButton = document.getElementById('clearSearch');
+                const searchProducts = document.getElementById('searchProducts');
+                const searchSuggestions = document.querySelector('.search-suggestions');
+                const noResults = document.getElementById('noResults');
+                
+                searchInput.value = '';
+                clearButton.style.display = 'none';
+                searchProducts.style.display = 'none';
+                searchSuggestions.style.display = 'block';
+                noResults.style.display = 'none';
+            }
+
+            handleSearchInput(e) {
+                const searchTerm = e.target.value.trim();
+                const clearButton = document.getElementById('clearSearch');
+                
+                if (searchTerm.length > 0) {
+                    clearButton.style.display = 'block';
+                    if (searchTerm.length >= 2) {
+                        this.performSearch(searchTerm);
+                    }
+                } else {
+                    this.clearSearch();
                 }
+            }
+
+            searchFromSuggestion(e) {
+                const searchTerm = e.target.getAttribute('data-search');
+                document.getElementById('searchInput').value = searchTerm;
+                this.performSearch(searchTerm);
+            }
+
+            performSearch(searchTerm) {
+                const searchProducts = document.getElementById('searchProducts');
+                const searchSuggestions = document.querySelector('.search-suggestions');
+                const noResults = document.getElementById('noResults');
+                
+                // Hide suggestions, show products container
+                searchSuggestions.style.display = 'none';
+                searchProducts.style.display = 'block';
+                noResults.style.display = 'none';
+                
+                // Filter products
+                const results = Object.values(this.productData).filter(product => {
+                    const searchLower = searchTerm.toLowerCase();
+                    return product.title.toLowerCase().includes(searchLower) ||
+                           product.description.toLowerCase().includes(searchLower) ||
+                           product.features.some(feature => feature.toLowerCase().includes(searchLower));
+                });
+                
+                if (results.length > 0) {
+                    this.displaySearchResults(results);
+                } else {
+                    searchProducts.style.display = 'none';
+                    noResults.style.display = 'block';
+                }
+            }
+
+            displaySearchResults(results) {
+                const searchProducts = document.getElementById('searchProducts');
+                searchProducts.innerHTML = '';
+                
+                results.forEach(product => {
+                    const productElement = document.createElement('div');
+                    productElement.className = 'search-product-item';
+                    productElement.innerHTML = `
+                        <img src="${product.image}" alt="${product.title}" class="search-product-image">
+                        <div class="search-product-name">${product.title}</div>
+                        <div class="search-product-price">${product.priceDisplay}</div>
+                    `;
+                    
+                    productElement.addEventListener('click', () => {
+                        this.closeSearch();
+                        this.openQuickViewByTitle(product.title);
+                    });
+                    
+                    searchProducts.appendChild(productElement);
+                });
+            }
+
+            openQuickViewByTitle(title) {
+                const product = this.productData[title];
+                if (product) {
+                    this.populateQuickView(product);
+                    document.getElementById('quickViewModal').style.display = 'block';
+                    document.body.style.overflow = 'hidden';
+                }
+            }
+
+            // Legacy search functionality (kept for compatibility)
+            handleSearch() {
+                this.openSearch();
             }
 
             searchProducts(searchTerm) {
